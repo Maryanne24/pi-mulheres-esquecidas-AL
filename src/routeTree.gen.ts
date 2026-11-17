@@ -10,11 +10,24 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LinhaDoTempoRouteImport } from './routes/linha-do-tempo'
+import { Route as PaisesRouteImport } from './routes/paises'
 import { Route as PesquisarRouteImport } from './routes/pesquisar'
+import { Route as MulherSlugRouteImport } from './routes/mulher.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LinhaDoTempoRoute = LinhaDoTempoRouteImport.update({
+  id: '/linha-do-tempo',
+  path: '/linha-do-tempo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PaisesRoute = PaisesRouteImport.update({
+  id: '/paises',
+  path: '/paises',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PesquisarRoute = PesquisarRouteImport.update({
@@ -22,31 +35,55 @@ const PesquisarRoute = PesquisarRouteImport.update({
   path: '/pesquisar',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MulherSlugRoute = MulherSlugRouteImport.update({
+  id: '/mulher/$slug',
+  path: '/mulher/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/linha-do-tempo': typeof LinhaDoTempoRoute
+  '/paises': typeof PaisesRoute
   '/pesquisar': typeof PesquisarRoute
+  '/mulher/$slug': typeof MulherSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/linha-do-tempo': typeof LinhaDoTempoRoute
+  '/paises': typeof PaisesRoute
   '/pesquisar': typeof PesquisarRoute
+  '/mulher/$slug': typeof MulherSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/linha-do-tempo': typeof LinhaDoTempoRoute
+  '/paises': typeof PaisesRoute
   '/pesquisar': typeof PesquisarRoute
+  '/mulher/$slug': typeof MulherSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/pesquisar'
+  fullPaths:
+    '/' | '/linha-do-tempo' | '/paises' | '/pesquisar' | '/mulher/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/pesquisar'
-  id: '__root__' | '/' | '/pesquisar'
+  to: '/' | '/linha-do-tempo' | '/paises' | '/pesquisar' | '/mulher/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/linha-do-tempo'
+    | '/paises'
+    | '/pesquisar'
+    | '/mulher/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LinhaDoTempoRoute: typeof LinhaDoTempoRoute
+  PaisesRoute: typeof PaisesRoute
   PesquisarRoute: typeof PesquisarRoute
+  MulherSlugRoute: typeof MulherSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -58,6 +95,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/linha-do-tempo': {
+      id: '/linha-do-tempo'
+      path: '/linha-do-tempo'
+      fullPath: '/linha-do-tempo'
+      preLoaderRoute: typeof LinhaDoTempoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/paises': {
+      id: '/paises'
+      path: '/paises'
+      fullPath: '/paises'
+      preLoaderRoute: typeof PaisesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pesquisar': {
       id: '/pesquisar'
       path: '/pesquisar'
@@ -65,12 +116,22 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PesquisarRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mulher/$slug': {
+      id: '/mulher/$slug'
+      path: '/mulher/$slug'
+      fullPath: '/mulher/$slug'
+      preLoaderRoute: typeof MulherSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LinhaDoTempoRoute: LinhaDoTempoRoute,
+  PaisesRoute: PaisesRoute,
   PesquisarRoute: PesquisarRoute,
+  MulherSlugRoute: MulherSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

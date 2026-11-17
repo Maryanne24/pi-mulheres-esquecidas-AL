@@ -1,4 +1,4 @@
-mport { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Voltar, Retrato } from "@/components/Voltar";
 import { MapaAmerica } from "@/components/MapaAmerica";
